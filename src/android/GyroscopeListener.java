@@ -23,6 +23,7 @@ import android.hardware.SensorManager;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 /**
  * This class listens to the gyroscope sensor and stores the latest
@@ -139,7 +140,7 @@ public class GyroscopeListener extends CordovaPlugin implements SensorEventListe
         // If found, then register as listener
         if ((list != null) && (list.size() > 0)) {
           this.mSensor = list.get(0);
-          this.sensorManager.registerListener(this, this.mSensor, SensorManager.SENSOR_DELAY_UI);
+          this.sensorManager.registerListener(this, this.mSensor, SensorManager.SENSOR_DELAY_GAME);
           this.setStatus(GyroscopeListener.STARTING);
         } else {
           this.setStatus(GyroscopeListener.ERROR_FAILED_TO_START);
@@ -282,6 +283,7 @@ public class GyroscopeListener extends CordovaPlugin implements SensorEventListe
     private JSONObject getAngularSpeedJSON() {
         JSONObject r = new JSONObject();
         try {
+			Log.i("TAG", this.timestamp + "");
             r.put("x", this.x);
             r.put("y", this.y);
             r.put("z", this.z);
